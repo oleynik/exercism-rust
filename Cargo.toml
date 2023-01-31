@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "hello-world",
+    "lucians-luscious-lasagna",
+    "assembly-line",
+    "semi-structured-logs",
+    "resistor-color",
+    "health-statistics",
+    "low-power-embedded-game",
+    "role-playing-game",
+    "magazine-cutout"
+]
