@@ -155,6 +155,10 @@ name = "semi_structured_logs"
 version = "0.1.0"
 
 [[package]]
+name = "short_fibonacci"
+version = "0.1.0"
+
+[[package]]
 name = "syn"
 version = "1.0.107"
 source = "registry+https://github.com/rust-lang/crates.io-index"
