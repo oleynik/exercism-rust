@@ -10,5 +10,6 @@ members = [
     "role-playing-game",
     "magazine-cutout",
     "short-fibonacci",
-    "rpn-calculator"
+    "rpn-calculator",
+    "reverse-string"
 ]
