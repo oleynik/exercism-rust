@@ -11,5 +11,6 @@ members = [
     "magazine-cutout",
     "short-fibonacci",
     "rpn-calculator",
-    "reverse-string"
+    "reverse-string",
+    "gigasecond"
 ]
