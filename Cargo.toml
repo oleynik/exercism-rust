@@ -12,5 +12,6 @@ members = [
     "short-fibonacci",
     "rpn-calculator",
     "reverse-string",
-    "gigasecond"
+    "gigasecond",
+    "clock"
 ]
