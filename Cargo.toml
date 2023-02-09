@@ -13,5 +13,6 @@ members = [
     "rpn-calculator",
     "reverse-string",
     "gigasecond",
-    "clock"
+    "clock",
+    "anagram"
 ]

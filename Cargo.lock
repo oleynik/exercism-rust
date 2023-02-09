@@ -3,6 +3,10 @@
 version = 3
 
 [[package]]
+name = "anagram"
+version = "0.0.0"
+
+[[package]]
 name = "assembly-line"
 version = "0.1.0"
 
