@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "sandbox",
     "hello-world",
     "lucians-luscious-lasagna",
     "assembly-line",
