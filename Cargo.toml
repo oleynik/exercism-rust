@@ -15,5 +15,6 @@ members = [
     "reverse-string",
     "gigasecond",
     "clock",
-    "anagram"
+    "anagram",
+    "space-age"
 ]
