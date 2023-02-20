@@ -16,5 +16,6 @@ members = [
     "gigasecond",
     "clock",
     "anagram",
-    "space-age"
+    "space-age",
+    "macros"
 ]
