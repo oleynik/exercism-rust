@@ -17,5 +17,6 @@ members = [
     "clock",
     "anagram",
     "space-age",
-    "macros"
+    "macros",
+    "sublist"
 ]
