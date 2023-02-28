@@ -25,9 +25,11 @@ macro_rules! planet {
     ($name: ident, $orbital_period: expr) => {
         pub struct $name;
         impl Planet for $name {
-            fn earth_orbital_period() -> f64 {$orbital_period}
+            fn earth_orbital_period() -> f64 {
+                $orbital_period
+            }
         }
-    }
+    };
 }
 
 planet!(Mercury, 0.2408467);

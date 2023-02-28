@@ -10,8 +10,14 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'
         let mut clone = map.clone();
         for ch in w.to_lowercase().chars() {
             match clone.get(&ch) {
-                Some(&count) => if count == 0 { continue 'next_word; } else { clone.insert(ch, count - 1) },
-                None => continue 'next_word
+                Some(&count) => {
+                    if count == 0 {
+                        continue 'next_word;
+                    } else {
+                        clone.insert(ch, count - 1)
+                    }
+                }
+                None => continue 'next_word,
             };
         }
         for &v in clone.values() {
@@ -29,7 +35,7 @@ fn decompose_word(word: &str) -> HashMap<char, u32> {
     for ch in word.to_lowercase().chars() {
         match result.get(&ch) {
             Some(count) => result.insert(ch, count + 1),
-            None => result.insert(ch, 1)
+            None => result.insert(ch, 1),
         };
     }
     result

@@ -15,7 +15,7 @@ pub fn log(level: LogLevel, message: &str) -> String {
     match level {
         LogLevel::Info => format!("[INFO]: {}", message),
         LogLevel::Warning => format!("[WARNING]: {}", message),
-        LogLevel::Error => format!("[ERROR]: {}", message)
+        LogLevel::Error => format!("[ERROR]: {}", message),
     }
 }
 

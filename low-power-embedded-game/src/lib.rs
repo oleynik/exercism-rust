@@ -6,11 +6,8 @@ pub fn divmod(dividend: i16, divisor: i16) -> (i16, i16) {
     (dividend / divisor, dividend % divisor)
 }
 
-pub fn evens<T>(iter: impl Iterator<Item=T>) -> impl Iterator<Item=T> {
-    iter
-        .enumerate()
-        .filter(|x| { x.0 % 2 == 0 })
-        .map(|x| x.1)
+pub fn evens<T>(iter: impl Iterator<Item = T>) -> impl Iterator<Item = T> {
+    iter.enumerate().filter(|x| x.0 % 2 == 0).map(|x| x.1)
 }
 
 pub struct Position(pub i16, pub i16);

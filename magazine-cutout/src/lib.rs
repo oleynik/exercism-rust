@@ -10,8 +10,12 @@ fn count_words<'a>(words: &'a [&str]) -> HashMap<&'a str, u32> {
     for word in words {
         let option = result.get(*word);
         match option {
-            Some(v) => { result.insert(word, v + 1); }
-            None => { result.insert(word, 1); }
+            Some(v) => {
+                result.insert(word, v + 1);
+            }
+            None => {
+                result.insert(word, 1);
+            }
         }
     }
     result
@@ -23,8 +27,12 @@ pub fn can_construct_note(magazine: &[&str], note: &[&str]) -> bool {
 
     for (&word, &count) in note_map.iter() {
         match magazine_map.get(&word) {
-            Some(&v) => if v < count { return false; },
-            None => (return false; )
+            Some(&v) => {
+                if v < count {
+                    return false;
+                }
+            }
+            None => (return false),
         }
     }
     true

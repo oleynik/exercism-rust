@@ -10,7 +10,7 @@ pub fn production_rate_per_hour(speed: u8) -> f64 {
         1 | 2 | 3 | 4 => speed as f64,
         5 | 6 | 7 | 8 => 0.9 * speed as f64,
         9 | 10 => 0.77 * speed as f64,
-        _ => 0.0
+        _ => 0.0,
     };
     i * CARS_PER_HOUR as f64
 }

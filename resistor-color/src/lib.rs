@@ -24,7 +24,7 @@ pub fn value_to_color_string(value: u32) -> String {
     let result = ResistorColor::from_int(value);
     match result {
         Ok(rc) => format!("{:?}", rc),
-        Err(_) => String::from("value out of range")
+        Err(_) => String::from("value out of range"),
     }
 }
 
