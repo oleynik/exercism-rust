@@ -4,6 +4,7 @@ use short_fibonacci::*;
 fn test_empty() {
     assert_eq!(create_empty(), Vec::new());
 }
+
 #[test]
 fn test_buffer() {
     for n in 0..10 {
@@ -12,6 +13,7 @@ fn test_buffer() {
         assert!(zeroized.iter().all(|&v| v == 0));
     }
 }
+
 #[test]
 fn test_fibonacci() {
     let fibb = fibonacci();

@@ -10,7 +10,7 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'
         let mut clone = map.clone();
         for ch in w.to_lowercase().chars() {
             match clone.get(&ch) {
-                Some(&count) => if count == 0 {continue 'next_word;} else {clone.insert(ch, count-1)},
+                Some(&count) => if count == 0 { continue 'next_word; } else { clone.insert(ch, count - 1) },
                 None => continue 'next_word
             };
         }

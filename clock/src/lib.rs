@@ -6,12 +6,12 @@ const DAY: i64 = 24 * HOUR;
 
 #[derive(Debug, PartialEq)]
 pub struct Clock {
-    minutes: i64
+    minutes: i64,
 }
 
 impl Clock {
     pub fn new(hours: i64, minutes: i64) -> Self {
-        Clock {minutes: (hours * HOUR + minutes).rem_euclid(DAY)}
+        Clock { minutes: (hours * HOUR + minutes).rem_euclid(DAY) }
     }
 
     pub fn add_minutes(&self, minutes: i64) -> Self {

@@ -15,8 +15,8 @@ impl Player {
         match self.health {
             0 => Some(Player {
                 health: 100,
-                mana: if self.level >= 10 {Some(100)} else {None},
-                level: self.level
+                mana: if self.level >= 10 { Some(100) } else { None },
+                level: self.level,
             }),
             _ => None
         }
@@ -27,12 +27,18 @@ impl Player {
             Some(x) => {
                 match x.cmp(&mana_cost) {
                     Ordering::Less => 0,
-                    Ordering::Equal => {self.mana = None; 2*mana_cost},
-                    Ordering::Greater=> {self.mana = Some(x-mana_cost); 2*mana_cost}
+                    Ordering::Equal => {
+                        self.mana = None;
+                        2 * mana_cost
+                    }
+                    Ordering::Greater => {
+                        self.mana = Some(x - mana_cost);
+                        2 * mana_cost
+                    }
                 }
-            },
+            }
             None => {
-                self.health = if mana_cost > self.health {0} else {self.health - mana_cost};
+                self.health = if mana_cost > self.health { 0 } else { self.health - mana_cost };
                 0
             }
         }

@@ -22,10 +22,10 @@ pub fn evaluate(inputs: &[CalculatorInput]) -> Option<i32> {
     for x in inputs {
         let match_result = match x {
             CalculatorInput::Value(v) => Some(*v),
-            CalculatorInput::Add => operate(stack.pop(), stack.pop(), |a, b| {a+b}),
-            CalculatorInput::Subtract => operate(stack.pop(), stack.pop(), |a, b| {a-b}),
-            CalculatorInput::Multiply => operate(stack.pop(), stack.pop(), |a, b| {a*b}),
-            CalculatorInput::Divide => operate(stack.pop(), stack.pop(), |a, b| {a/b})
+            CalculatorInput::Add => operate(stack.pop(), stack.pop(), |a, b| { a + b }),
+            CalculatorInput::Subtract => operate(stack.pop(), stack.pop(), |a, b| { a - b }),
+            CalculatorInput::Multiply => operate(stack.pop(), stack.pop(), |a, b| { a * b }),
+            CalculatorInput::Divide => operate(stack.pop(), stack.pop(), |a, b| { a / b })
         };
 
         match match_result {

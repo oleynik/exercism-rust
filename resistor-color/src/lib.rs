@@ -13,7 +13,7 @@ pub enum ResistorColor {
     Blue = 6,
     Violet = 7,
     Grey = 8,
-    White = 9
+    White = 9,
 }
 
 pub fn color_to_value(_color: ResistorColor) -> u32 {

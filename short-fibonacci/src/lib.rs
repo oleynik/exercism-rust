@@ -21,7 +21,7 @@ pub fn fibonacci() -> Vec<u8> {
             vec[i] = 1;
             continue;
         }
-        vec[i] = vec[i-1] + vec[i-2];
+        vec[i] = vec[i - 1] + vec[i - 2];
     }
     vec
 }
