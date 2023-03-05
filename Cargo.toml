@@ -18,5 +18,6 @@ members = [
     "anagram",
     "space-age",
     "macros",
-    "sublist"
+    "sublist",
+    "minesweeper"
 ]
