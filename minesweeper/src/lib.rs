@@ -7,17 +7,17 @@ pub fn annotate(minefield: &[&str]) -> Vec<String> {
         let m = line.len();
         for j in 0..m {
             let char = line[j] as char;
-            if char  == ' ' {
+            if char == ' ' {
                 let mut count = 0;
-                let left = if j > 0 {j-1} else {0};
-                let right = if j < m-1 {j+1} else {j};
+                let left = if j > 0 { j - 1 } else { 0 };
+                let right = if j < m - 1 { j + 1 } else { j };
                 count += count_mines(&line[left..=right]);
                 if i > 0 {
                     let prev = minefield[i - 1].as_bytes();
                     count += count_mines(&prev[left..=right]);
                 }
-                if i < n-1 {
-                    let next = minefield[i+1].as_bytes();
+                if i < n - 1 {
+                    let next = minefield[i + 1].as_bytes();
                     count += count_mines(&next[left..=right]);
                 }
 
