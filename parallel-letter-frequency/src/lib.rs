@@ -10,11 +10,17 @@ fn batch_size(lines_number: usize, group_number: usize) -> usize {
 }
 
 pub fn frequency(input: &[&str], worker_count: usize) -> HashMap<char, usize> {
-    if input.len() == 0 {
+    let words: Vec<String> = input
+        .join(" ")
+        .split_whitespace()
+        .map(|s|s.to_string().to_ascii_lowercase())
+        .collect();
+    if words.len() == 0 {
         return HashMap::new();
     }
-    let batch_size = batch_size(input.len(), worker_count);
-    let chunks = input.chunks(batch_size);
+    let batch_size = batch_size(words.len(), worker_count);
+    let chunks = words.chunks(batch_size);
+
     let mut handlers = vec![];
     let (send, recv) = mpsc::channel();
 
