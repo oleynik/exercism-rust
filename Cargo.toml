@@ -20,5 +20,6 @@ members = [
     "macros",
     "sublist",
     "minesweeper",
-    "luhn"
+    "luhn",
+    "parallel-letter-frequency"
 ]
