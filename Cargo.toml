@@ -22,5 +22,6 @@ members = [
     "minesweeper",
     "luhn",
     "parallel-letter-frequency",
-    "armstrong-numbers"
+    "armstrong-numbers",
+    "difference-of-squares"
 ]
