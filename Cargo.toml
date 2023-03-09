@@ -23,5 +23,6 @@ members = [
     "luhn",
     "parallel-letter-frequency",
     "armstrong-numbers",
-    "difference-of-squares"
+    "difference-of-squares",
+    "grains"
 ]
