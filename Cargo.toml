@@ -24,5 +24,6 @@ members = [
     "parallel-letter-frequency",
     "armstrong-numbers",
     "difference-of-squares",
-    "grains"
+    "grains",
+    "leap"
 ]
