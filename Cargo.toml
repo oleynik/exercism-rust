@@ -29,5 +29,6 @@ members = [
     "nth-prime",
     "prime-factors",
     "proverb",
-    "raindrops"
+    "raindrops",
+    "sum-of-multiples"
 ]
