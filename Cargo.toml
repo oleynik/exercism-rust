@@ -27,5 +27,6 @@ members = [
     "grains",
     "leap",
     "nth-prime",
-    "prime-factors"
+    "prime-factors",
+    "proverb"
 ]
