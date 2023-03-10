@@ -28,5 +28,6 @@ members = [
     "leap",
     "nth-prime",
     "prime-factors",
-    "proverb"
+    "proverb",
+    "raindrops"
 ]
