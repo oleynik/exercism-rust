@@ -148,6 +148,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "nth_prime"
+version = "2.1.0"
+
+[[package]]
 name = "once_cell"
 version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

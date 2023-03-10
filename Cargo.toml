@@ -25,5 +25,6 @@ members = [
     "armstrong-numbers",
     "difference-of-squares",
     "grains",
-    "leap"
+    "leap",
+    "nth-prime"
 ]
