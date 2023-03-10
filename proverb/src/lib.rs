@@ -3,8 +3,11 @@ pub fn build_proverb(list: &[&str]) -> String {
         0 => String::new(),
         _ => list
             .windows(2)
-            .map(|item|format!("For want of a {} the {} was lost.\n", item[0], item[1]))
-            .chain(std::iter::once(format!("And all for the want of a {}.", list[0])))
-            .collect::<String>()
+            .map(|item| format!("For want of a {} the {} was lost.\n", item[0], item[1]))
+            .chain(std::iter::once(format!(
+                "And all for the want of a {}.",
+                list[0]
+            )))
+            .collect::<String>(),
     }
 }
