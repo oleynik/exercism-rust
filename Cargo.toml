@@ -30,5 +30,6 @@ members = [
     "prime-factors",
     "proverb",
     "raindrops",
-    "sum-of-multiples"
+    "sum-of-multiples",
+    "bob"
 ]
