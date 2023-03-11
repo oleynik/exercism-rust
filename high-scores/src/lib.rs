@@ -1,11 +1,11 @@
 #[derive(Debug)]
 pub struct HighScores<'a> {
-    scores: &'a[u32]
+    scores: &'a [u32],
 }
 
 impl<'a> HighScores<'a> {
     pub fn new(scores: &'a [u32]) -> Self {
-        HighScores{scores}
+        HighScores { scores }
     }
 
     pub fn scores(&self) -> &[u32] {
@@ -15,14 +15,14 @@ impl<'a> HighScores<'a> {
     pub fn latest(&self) -> Option<u32> {
         match self.scores.last() {
             Some(last) => Some(*last),
-            None => None
+            None => None,
         }
     }
 
     pub fn personal_best(&self) -> Option<u32> {
         match self.scores.iter().max() {
             Some(max) => Some(*max),
-            None => None
+            None => None,
         }
     }
 
@@ -39,6 +39,6 @@ impl<'a> HighScores<'a> {
             }
             indexes.push(max_index);
         }
-        indexes.iter().map(|&i|self.scores[i]).collect()
+        indexes.iter().map(|&i| self.scores[i]).collect()
     }
 }
