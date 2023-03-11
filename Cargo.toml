@@ -31,5 +31,6 @@ members = [
     "proverb",
     "raindrops",
     "sum-of-multiples",
-    "bob"
+    "bob",
+    "high-scores"
 ]
