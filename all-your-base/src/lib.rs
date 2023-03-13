@@ -64,13 +64,11 @@ pub fn convert(number: &[u32], from_base: u32, to_base: u32) -> Result<Vec<u32>,
         return Ok(vec![0]);
     }
 
-    let len = ((resolved_number as f32).log(to_base as f32).floor() as u32 + 1) as usize;
-    let mut result: Vec<u32> = vec![0; len];
+    let mut result: Vec<u32> = vec![];
     while resolved_number > 0 {
-        let pow = (resolved_number as f32).log(to_base as f32).floor() as u32;
-        let n = resolved_number / to_base.pow(pow);
-        resolved_number -= (n * to_base.pow(pow));
-        result[len - pow as usize - 1] = n;
+        result.push(resolved_number % to_base);
+        resolved_number /= to_base;
     }
+    result.reverse();
     Ok(result)
 }
