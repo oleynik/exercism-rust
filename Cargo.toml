@@ -35,5 +35,6 @@ members = [
     "high-scores",
     "matching-brackets",
     "beer-song",
-    "acronym"
+    "acronym",
+    "all-your-base"
 ]
