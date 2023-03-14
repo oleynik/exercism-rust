@@ -1,7 +1,7 @@
 use crate::Allergen::{Cats, Chocolate, Eggs, Peanuts, Pollen, Shellfish, Strawberries, Tomatoes};
 
 pub struct Allergies {
-    score: u32
+    score: u32,
 }
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
@@ -18,13 +18,22 @@ pub enum Allergen {
 
 impl Allergen {
     fn values() -> Vec<Allergen> {
-        vec![Eggs, Peanuts, Shellfish, Strawberries, Tomatoes, Chocolate, Pollen, Cats]
+        vec![
+            Eggs,
+            Peanuts,
+            Shellfish,
+            Strawberries,
+            Tomatoes,
+            Chocolate,
+            Pollen,
+            Cats,
+        ]
     }
 }
 
 impl Allergies {
     pub fn new(score: u32) -> Self {
-        Allergies {score}
+        Allergies { score }
     }
 
     pub fn is_allergic_to(&self, allergen: &Allergen) -> bool {
@@ -35,7 +44,7 @@ impl Allergies {
     pub fn allergies(&self) -> Vec<Allergen> {
         Allergen::values()
             .iter()
-            .filter(|&a|self.is_allergic_to(a))
+            .filter(|&a| self.is_allergic_to(a))
             .map(Allergen::clone)
             .collect()
     }
