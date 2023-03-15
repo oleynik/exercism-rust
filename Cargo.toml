@@ -37,5 +37,6 @@ members = [
     "beer-song",
     "acronym",
     "all-your-base",
-    "allergies"
+    "allergies",
+    "bowling"
 ]
