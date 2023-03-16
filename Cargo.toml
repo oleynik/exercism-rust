@@ -39,5 +39,6 @@ members = [
     "all-your-base",
     "allergies",
     "bowling",
-    "hamming"
+    "hamming",
+    "grade-school"
 ]
