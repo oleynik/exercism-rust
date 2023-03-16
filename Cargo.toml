@@ -38,5 +38,6 @@ members = [
     "acronym",
     "all-your-base",
     "allergies",
-    "bowling"
+    "bowling",
+    "hamming"
 ]
