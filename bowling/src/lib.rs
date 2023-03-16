@@ -22,10 +22,6 @@ impl Frame {
     fn is_spare(&self) -> bool {
         !self.is_strike() && self.score() == PINS_AND_FRAMES_LIMIT
     }
-
-    fn is_openframe(&self) -> bool {
-        self.score() != PINS_AND_FRAMES_LIMIT
-    }
 }
 
 pub struct BowlingGame {
@@ -39,93 +35,57 @@ impl BowlingGame {
         }
     }
 
+    fn number_of_bonuses(tens_frame: Option<&Frame>) -> u16 {
+        match tens_frame {
+            Some(f) if f.is_strike() => 2,
+            Some(f) if f.is_spare() => 1,
+            _ => 0
+        }
+    }
+
     pub fn roll(&mut self, pins: u16) -> Result<(), Error> {
         if pins > PINS_AND_FRAMES_LIMIT {
             return Err(Error::NotEnoughPinsLeft);
         }
         let len = self.frames.len() as u16;
-        if len >= PINS_AND_FRAMES_LIMIT {
-            if len == PINS_AND_FRAMES_LIMIT {
-                let last = self.frames.last_mut().unwrap();
-                return match last.second {
-                    Some(_) if last.is_openframe() => Err(Error::GameComplete),
-                    Some(_) => Ok(self.frames.push(Frame{first: Some(pins), second: None})),
-                    None if last.is_strike() => Ok(self.frames.push(Frame{first: Some(pins), second: None})),
-                    None if last.first.unwrap() + pins > PINS_AND_FRAMES_LIMIT => Err(Error::NotEnoughPinsLeft),
-                    None => Ok(last.second = Some(pins))
-                };
-            } else {
-                // Bonus (11 Frames)
-                let bonuses = match self.frames.get((PINS_AND_FRAMES_LIMIT-1) as usize).unwrap() {
-                    f if f.is_strike() => 2,
-                    f if f.is_spare() => 1,
-                    _ => 0
-                };
-                let last = self.frames.last_mut().unwrap();
-                return match (bonuses, last) {
-                    (0, _) => Err(Error::GameComplete),
-                    (1, l) if l.first.is_some() => Err(Error::GameComplete),
-                    (1, l) => Ok(l.first = Some(pins)),
-                    (2, l) if l.second.is_some() => Err(Error::GameComplete),
-                    (2, l) if !l.is_strike() && l.first.unwrap() + pins > PINS_AND_FRAMES_LIMIT => Err(Error::NotEnoughPinsLeft),
-                    (2, l) => Ok(l.second = Some(pins)),
-                    (_, _) => Err(Error::GameComplete)
-                };
-            }
-        } else {
-            // Frame
-            let frame = self.frames.last_mut();
-            return match frame {
-                Some(f) if !f.is_strike() && f.second.is_none() => {
-                    if f.first.unwrap_or_default() + pins > PINS_AND_FRAMES_LIMIT {
-                        Err(Error::NotEnoughPinsLeft)
-                    } else {
-                        Ok(f.second = Some(pins))
-                    }
-                },
-                _ => Ok(self.frames.push(Frame{first: Some(pins), second: None}))
-            };
+        let tens = self.frames.get((PINS_AND_FRAMES_LIMIT-1) as usize);
+        let bonus_numbers = BowlingGame::number_of_bonuses(tens);
+        match (len, bonus_numbers, &mut self.frames) {
+            (11, 2, vec) if vec.last().unwrap().second.is_some() => Err(Error::GameComplete),
+            (11, 2, vec) if !vec.last().unwrap().is_strike() && vec.last().unwrap().first.unwrap_or_default() + pins > PINS_AND_FRAMES_LIMIT => Err(Error::NotEnoughPinsLeft),
+            (11, 1, _) => Err(Error::GameComplete),
+            (10, 0, vec) if vec.last().unwrap().second.is_some() => Err(Error::GameComplete),
+            (0, _, _) => Ok(self.frames.push(Frame{first: Some(pins), second: None})),
+            (_, _, vec) if vec.last().unwrap().is_strike() => Ok(self.frames.push(Frame{first: Some(pins), second: None})),
+            (_, _, vec) if vec.last().unwrap().second.is_some() => Ok(self.frames.push(Frame{first: Some(pins), second: None})),
+            (_, _, vec) if vec.last().unwrap().first.unwrap_or_default() + pins > PINS_AND_FRAMES_LIMIT => Err(Error::NotEnoughPinsLeft),
+            (_, _, vec) => Ok(vec.last_mut().unwrap().second = Some(pins))
         }
     }
 
     pub fn score(&self) -> Option<u16> {
         let len = self.frames.len() as u16;
-        if len < PINS_AND_FRAMES_LIMIT {
-            return None;
+        let tens = self.frames.get((PINS_AND_FRAMES_LIMIT-1) as usize);
+        let bonus_numbers = BowlingGame::number_of_bonuses(tens);
+        match (len, bonus_numbers) {
+            (11, 2) if self.frames.last().unwrap().second.is_none() => None,
+            (10, 1 | 2) => None,
+            (10, _) if self.frames.last().unwrap().second.is_none() => None,
+            (0..=9, _) => None,
+            (_, _) => Some(self.frames.iter()
+                .chain((0..2).map(|_|&Frame {first: Some(0), second: Some(0)}).into_iter())
+                .collect::<Vec<&Frame>>()
+                .windows(3)
+                .take(PINS_AND_FRAMES_LIMIT as usize)
+                .map(|w| {
+                    match w {
+                        w if w[0].is_strike() && w[1].is_strike() => w[0].score() + w[1].score() + w[2].first.unwrap(),
+                        w if w[0].is_strike() => w[0].score() + w[1].score(),
+                        w if w[0].is_spare() => w[0].score() + w[1].first.unwrap(),
+                        w => w[0].score()
+                    }
+                })
+                .sum())
         }
-        let tens = self.frames.get((PINS_AND_FRAMES_LIMIT-1) as usize).unwrap();
-        let bonuses = match tens {
-            f if f.is_strike() => 2,
-            f if f.is_spare() => 1,
-            _ => 0
-        };
-        if bonuses > 0 {
-            if len == PINS_AND_FRAMES_LIMIT {
-                return None;
-            }
-            let last = self.frames.last().unwrap(); // Bonus Frame
-            let throws = match (last.first.is_some(), last.second.is_some()) {
-                (true, true) => 2,
-                (false, false) => 0,
-                (_, _) => 1
-            };
-            if bonuses != throws {
-                return None;
-            }
-        }
-        Some(self.frames.iter()
-            .chain((0..2).map(|_|&Frame {first: Some(0), second: Some(0)}).into_iter())
-            .collect::<Vec<&Frame>>()
-            .windows(3)
-            .take(PINS_AND_FRAMES_LIMIT as usize)
-            .map(|w| {
-                match w {
-                    w if w[0].is_strike() && w[1].is_strike() => w[0].score() + w[1].score() + w[2].first.unwrap(),
-                    w if w[0].is_strike() => w[0].score() + w[1].score(),
-                    w if w[0].is_spare() => w[0].score() + w[1].first.unwrap(),
-                    w => w[0].score()
-                }
-            })
-            .sum())
     }
 }
