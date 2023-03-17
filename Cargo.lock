@@ -141,6 +141,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "isbn-verifier"
+version = "2.7.0"
+
+[[package]]
 name = "leap"
 version = "1.6.0"
 

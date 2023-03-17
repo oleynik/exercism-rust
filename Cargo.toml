@@ -40,5 +40,6 @@ members = [
     "allergies",
     "bowling",
     "hamming",
-    "grade-school"
+    "grade-school",
+    "isbn-verifier"
 ]
