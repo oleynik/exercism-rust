@@ -41,5 +41,6 @@ members = [
     "bowling",
     "hamming",
     "grade-school",
-    "isbn-verifier"
+    "isbn-verifier",
+    "collatz-conjecture"
 ]
