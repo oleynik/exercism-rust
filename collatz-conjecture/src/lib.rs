@@ -1,24 +1,11 @@
-pub fn collatz(n: u64) -> Option<u64> {
-    if n == 0 {
-        return None;
-    }
-    let mut number = n;
-    let mut result = 0;
-    while number > 1 {
-        if number % 2 == 0 {
-            number /= 2;
-        } else {
-            let mut overflow = false;
-            (number, overflow) = number.overflowing_mul(3);
-            if overflow {
-                return None;
-            }
-            (number, overflow) = number.overflowing_add(1);
-            if overflow {
-                return None;
-            }
+pub fn collatz(mut n: u64) -> Option<u64> {
+    for i in 0.. {
+        match n {
+            0 => break,
+            1 => return Some(i),
+            a if a % 2 == 0 => n /= 2,
+            _ => n = n.checked_mul(3)?.checked_add(1)?,
         }
-        result += 1;
     }
-    Some(result)
+    None
 }
