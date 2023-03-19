@@ -3,10 +3,9 @@ pub fn series(digits: &str, len: usize) -> Vec<String> {
         0 => vec![String::new(); digits.len() + 1],
         _ => digits
             .chars()
-            .map(String::from)
-            .collect::<Vec<String>>()
+            .collect::<Vec<char>>()
             .windows(len)
-            .map(|a| a.concat())
+            .map(|a| a.into_iter().collect())
             .collect::<Vec<String>>(),
     }
 }
