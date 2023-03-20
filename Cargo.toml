@@ -43,5 +43,6 @@ members = [
     "grade-school",
     "isbn-verifier",
     "collatz-conjecture",
-    "series"
+    "series",
+    "isogram"
 ]
