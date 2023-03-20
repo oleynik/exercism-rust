@@ -44,5 +44,6 @@ members = [
     "isbn-verifier",
     "collatz-conjecture",
     "series",
-    "isogram"
+    "isogram",
+    "nucleotide-count"
 ]
