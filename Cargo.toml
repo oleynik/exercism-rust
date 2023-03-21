@@ -45,5 +45,6 @@ members = [
     "collatz-conjecture",
     "series",
     "isogram",
-    "nucleotide-count"
+    "nucleotide-count",
+    "pascals-triangle"
 ]
