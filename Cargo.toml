@@ -46,5 +46,6 @@ members = [
     "series",
     "isogram",
     "nucleotide-count",
-    "pascals-triangle"
+    "pascals-triangle",
+    "rna-transcription"
 ]
