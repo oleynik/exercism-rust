@@ -47,5 +47,6 @@ members = [
     "isogram",
     "nucleotide-count",
     "pascals-triangle",
-    "rna-transcription"
+    "rna-transcription",
+    "perfect-numbers"
 ]
