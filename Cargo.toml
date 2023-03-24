@@ -48,5 +48,6 @@ members = [
     "nucleotide-count",
     "pascals-triangle",
     "rna-transcription",
-    "perfect-numbers"
+    "perfect-numbers",
+    "custom-set"
 ]
