@@ -50,5 +50,6 @@ members = [
     "rna-transcription",
     "perfect-numbers",
     "custom-set",
-    "spiral-matrix"
+    "spiral-matrix",
+    "saddle-points"
 ]
