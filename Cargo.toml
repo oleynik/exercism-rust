@@ -49,5 +49,6 @@ members = [
     "pascals-triangle",
     "rna-transcription",
     "perfect-numbers",
-    "custom-set"
+    "custom-set",
+    "spiral-matrix"
 ]
