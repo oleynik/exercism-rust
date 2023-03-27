@@ -51,5 +51,6 @@ members = [
     "perfect-numbers",
     "custom-set",
     "spiral-matrix",
-    "saddle-points"
+    "saddle-points",
+    "tournament"
 ]

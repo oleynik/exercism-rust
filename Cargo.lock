@@ -383,6 +383,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "tournament"
+version = "1.4.0"
+
+[[package]]
 name = "unicode-ident"
 version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
