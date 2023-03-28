@@ -4,11 +4,12 @@ pub fn is_pangram(sentence: &str) -> bool {
         return false;
     }
     let mut abc = ('a'..='z').collect::<Vec<char>>();
-    for ch in sentence.to_lowercase().chars() {
-        if !ch.is_alphabetic() {
-            continue;
-        }
-        abc.binary_search(&ch).map(|f| abc.remove(f));
-    }
+    sentence
+        .to_lowercase()
+        .chars()
+        .filter(|c| c.is_alphabetic())
+        .for_each(|c| {
+            abc.binary_search(&c).map(|idx| abc.remove(idx));
+        });
     abc.is_empty()
 }
