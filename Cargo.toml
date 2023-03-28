@@ -53,5 +53,6 @@ members = [
     "spiral-matrix",
     "saddle-points",
     "tournament",
-    "etl"
+    "etl",
+    "pangram"
 ]
