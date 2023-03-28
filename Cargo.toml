@@ -52,5 +52,6 @@ members = [
     "custom-set",
     "spiral-matrix",
     "saddle-points",
-    "tournament"
+    "tournament",
+    "etl"
 ]
