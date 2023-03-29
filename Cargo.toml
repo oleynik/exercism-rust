@@ -54,5 +54,6 @@ members = [
     "saddle-points",
     "tournament",
     "etl",
-    "pangram"
+    "pangram",
+    "queen-attack"
 ]
