@@ -55,5 +55,6 @@ members = [
     "tournament",
     "etl",
     "pangram",
-    "queen-attack"
+    "queen-attack",
+    "sieve"
 ]
