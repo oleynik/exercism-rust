@@ -56,5 +56,6 @@ members = [
     "etl",
     "pangram",
     "queen-attack",
-    "sieve"
+    "sieve",
+    "say"
 ]
