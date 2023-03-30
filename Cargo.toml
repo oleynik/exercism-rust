@@ -57,5 +57,6 @@ members = [
     "pangram",
     "queen-attack",
     "sieve",
-    "say"
+    "say",
+    "robot-simulator"
 ]

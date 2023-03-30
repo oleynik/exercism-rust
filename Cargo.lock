@@ -301,6 +301,10 @@ name = "rna-transcription"
 version = "1.0.0"
 
 [[package]]
+name = "robot-simulator"
+version = "2.2.0"
+
+[[package]]
 name = "role_playing_game"
 version = "0.1.0"
 
