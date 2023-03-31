@@ -1,15 +1,15 @@
+use std::collections::HashMap;
+
 pub struct CodonsInfo<'a> {
-    proteins: Vec<(&'a str, &'a str)>,
+    proteins: HashMap<&'a str, &'a str>,
 }
 
 impl<'a> CodonsInfo<'a> {
     pub fn name_for(&self, codon: &str) -> Option<&'a str> {
-        for (c, p) in self.proteins.clone() {
-            if c == codon {
-                return Some(p);
-            }
+        match self.proteins.get(codon) {
+            Some(&p) => Some(p),
+            None => None,
         }
-        None
     }
 
     pub fn of_rna(&self, rna: &str) -> Option<Vec<&'a str>> {
@@ -36,5 +36,9 @@ impl<'a> CodonsInfo<'a> {
 }
 
 pub fn parse<'a>(pairs: Vec<(&'a str, &'a str)>) -> CodonsInfo<'a> {
-    CodonsInfo { proteins: pairs }
+    let mut proteins = HashMap::with_capacity(pairs.len());
+    pairs.iter().for_each(|(c, p)| {
+        proteins.insert(*c, *p);
+    });
+    CodonsInfo { proteins }
 }
