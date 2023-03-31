@@ -59,5 +59,6 @@ members = [
     "sieve",
     "say",
     "robot-simulator",
-    "protein-translation"
+    "protein-translation",
+    "robot-name"
 ]
