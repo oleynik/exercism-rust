@@ -58,5 +58,6 @@ members = [
     "queen-attack",
     "sieve",
     "say",
-    "robot-simulator"
+    "robot-simulator",
+    "protein-translation"
 ]
