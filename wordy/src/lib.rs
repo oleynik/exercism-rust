@@ -1,8 +1,7 @@
 #[derive(Clone, Copy)]
 enum Token {
     ARGUMENT,
-    POWER,
-    OPERATOR,
+    COMMAND,
     CALCULATION,
 }
 
@@ -28,12 +27,18 @@ pub fn answer(command: &str) -> Option<i32> {
         (next, skip) = match next {
             Token::ARGUMENT => {
                 match input.split_whitespace().next() {
-                    Some(s) => stack.push(s.parse::<i32>().ok()?),
+                    Some(s) => stack.push(
+                        s.chars()
+                            .filter(|c| c.is_ascii_digit() || c == &'-' || c == &'+')
+                            .collect::<String>()
+                            .parse::<i32>()
+                            .ok()?,
+                    ),
                     None => return None,
                 };
                 (Token::CALCULATION, 1)
             }
-            Token::OPERATOR => match input.split_whitespace().next() {
+            Token::COMMAND => match input.split_whitespace().next() {
                 Some("plus") => {
                     command = Some("plus");
                     (Token::ARGUMENT, 1)
@@ -52,25 +57,12 @@ pub fn answer(command: &str) -> Option<i32> {
                 }
                 Some("raised") => {
                     command = Some("raised");
-                    (Token::POWER, 3)
+                    (Token::ARGUMENT, 3)
                 }
+                Some("power") => (Token::COMMAND, 1),
                 Some(_) => return None,
                 None => return stack.pop(),
             },
-            Token::POWER => {
-                stack.push(
-                    input
-                        .split_whitespace()
-                        .next()
-                        .unwrap()
-                        .chars()
-                        .filter(char::is_ascii_digit)
-                        .collect::<String>()
-                        .parse::<i32>()
-                        .ok()?,
-                );
-                (Token::CALCULATION, 2)
-            }
             Token::CALCULATION => {
                 if stack.len() == 2 && command.is_some() {
                     let b = stack.pop().unwrap();
@@ -85,7 +77,7 @@ pub fn answer(command: &str) -> Option<i32> {
                     }
                     command = None;
                 }
-                (Token::OPERATOR, 0)
+                (Token::COMMAND, 0)
             }
         };
         input = input
