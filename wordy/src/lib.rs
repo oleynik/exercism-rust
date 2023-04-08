@@ -1,6 +1,9 @@
+#[derive(Clone, Copy)]
 enum Token {
     ARGUMENT,
-    COMMAND,
+    POWER,
+    OPERATOR,
+    CALCULATION,
 }
 
 pub fn answer(command: &str) -> Option<i32> {
@@ -18,21 +21,57 @@ pub fn answer(command: &str) -> Option<i32> {
             .trim(),
     );
     let mut next = Token::ARGUMENT;
+    let mut skip = 0;
     let mut stack = vec![];
     let mut command: Option<&str> = None;
     loop {
-        next = match next {
+        (next, skip) = match next {
             Token::ARGUMENT => {
-                let argument = input.split_whitespace().next();
-                match argument {
+                match input.split_whitespace().next() {
                     Some(s) => stack.push(s.parse::<i32>().ok()?),
                     None => return None,
+                };
+                (Token::CALCULATION, 1)
+            }
+            Token::OPERATOR => match input.split_whitespace().next() {
+                Some("plus") => {
+                    command = Some("plus");
+                    (Token::ARGUMENT, 1)
                 }
-                input = input
-                    .split_whitespace()
-                    .skip(1)
-                    .collect::<Vec<&str>>()
-                    .join(SPACE);
+                Some("minus") => {
+                    command = Some("minus");
+                    (Token::ARGUMENT, 1)
+                }
+                Some("multiplied") => {
+                    command = Some("multiplied");
+                    (Token::ARGUMENT, 2)
+                }
+                Some("divided") => {
+                    command = Some("divided");
+                    (Token::ARGUMENT, 2)
+                }
+                Some("raised") => {
+                    command = Some("raised");
+                    (Token::POWER, 3)
+                }
+                Some(_) => return None,
+                None => return stack.pop(),
+            },
+            Token::POWER => {
+                stack.push(
+                    input
+                        .split_whitespace()
+                        .next()
+                        .unwrap()
+                        .chars()
+                        .filter(char::is_ascii_digit)
+                        .collect::<String>()
+                        .parse::<i32>()
+                        .ok()?,
+                );
+                (Token::CALCULATION, 2)
+            }
+            Token::CALCULATION => {
                 if stack.len() == 2 && command.is_some() {
                     let b = stack.pop().unwrap();
                     let a = stack.pop().unwrap();
@@ -41,41 +80,18 @@ pub fn answer(command: &str) -> Option<i32> {
                         "minus" => stack.push(a - b),
                         "multiplied" => stack.push(a * b),
                         "divided" => stack.push(a / b),
+                        "raised" => stack.push(a.pow(b as u32)),
                         c => panic!("Unknown command: {}", c),
                     }
                     command = None;
                 }
-                Token::COMMAND
+                (Token::OPERATOR, 0)
             }
-            Token::COMMAND => {
-                let com = input.split_whitespace().next();
-                let skip = match com {
-                    Some("plus") => {
-                        command = Some("plus");
-                        1
-                    }
-                    Some("minus") => {
-                        command = Some("minus");
-                        1
-                    }
-                    Some("multiplied") => {
-                        command = Some("multiplied");
-                        2
-                    }
-                    Some("divided") => {
-                        command = Some("divided");
-                        2
-                    }
-                    Some(_) => return None,
-                    None => return stack.pop(),
-                };
-                input = input
-                    .split_whitespace()
-                    .skip(skip)
-                    .collect::<Vec<&str>>()
-                    .join(SPACE);
-                Token::ARGUMENT
-            }
-        }
+        };
+        input = input
+            .split_whitespace()
+            .skip(skip)
+            .collect::<Vec<&str>>()
+            .join(SPACE);
     }
 }
