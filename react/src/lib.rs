@@ -1,5 +1,6 @@
 use rand::random;
 use std::collections::HashMap;
+use std::result;
 
 /// `InputCellId` is a unique identifier for an input cell.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -37,7 +38,8 @@ pub enum RemoveCallbackError {
 
 pub struct Reactor<T> {
     inputs: HashMap<InputCellId, T>,
-    graph: HashMap<CellId, (Vec<CellId>, fn(&[T]) -> T)>,
+    graph: HashMap<CellId, (Vec<CellId>, Box<dyn Fn(&[T]) -> T>)>,
+    callbacks: HashMap,
 }
 
 // You are guaranteed that Reactor will only be tested against types that are Copy + PartialEq.
@@ -73,7 +75,7 @@ impl<T: Copy + PartialEq> Reactor<T> {
     // Notice that there is no way to *remove* a cell.
     // This means that you may assume, without checking, that if the dependencies exist at creation
     // time they will continue to exist as long as the Reactor exists.
-    pub fn create_compute<F: Fn(&[T]) -> T>(
+    pub fn create_compute<F: Fn(&[T]) -> T + 'static>(
         &mut self,
         _dependencies: &[CellId],
         _compute_func: F,
@@ -86,7 +88,11 @@ impl<T: Copy + PartialEq> Reactor<T> {
                         return Err(cid);
                     }
                 }
-                _ => panic!("Unexpected dependency: {:?}", cid),
+                CellId::Compute(_) => {
+                    if self.graph.get(&cid).is_none() {
+                        return Err(cid);
+                    }
+                }
             }
         }
         loop {
@@ -94,7 +100,7 @@ impl<T: Copy + PartialEq> Reactor<T> {
             let cell_id = CellId::Compute(result);
             if self.graph.get(&cell_id).is_none() {
                 self.graph
-                    .insert(cell_id, (_dependencies.to_vec(), _compute_func));
+                    .insert(cell_id, (_dependencies.to_vec(), Box::new(_compute_func)));
                 return Ok(result);
             }
         }
@@ -110,7 +116,16 @@ impl<T: Copy + PartialEq> Reactor<T> {
     pub fn value(&self, id: CellId) -> Option<T> {
         match id {
             CellId::Input(iid) => self.inputs.get(&iid).map(|e| *e),
-            _ => None,
+            CellId::Compute(_) => match self.graph.get(&id) {
+                Some((dependencies, function)) => {
+                    let args = dependencies
+                        .iter()
+                        .filter_map(|&cid| self.value(cid))
+                        .collect::<Vec<_>>();
+                    Some(function(args.as_slice()))
+                }
+                None => None,
+            },
         }
     }
 
@@ -146,6 +161,8 @@ impl<T: Copy + PartialEq> Reactor<T> {
         _id: ComputeCellId,
         _callback: F,
     ) -> Option<CallbackId> {
+        // InputCellId [1]->[*] ComputedCellId [1]->[*] CallbackId
+        // InputCellId ->
         unimplemented!()
     }
 
