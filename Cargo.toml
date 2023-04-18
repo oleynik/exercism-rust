@@ -61,5 +61,6 @@ members = [
     "robot-simulator",
     "protein-translation",
     "robot-name",
-    "wordy"
+    "wordy",
+    "binary-search"
 ]
