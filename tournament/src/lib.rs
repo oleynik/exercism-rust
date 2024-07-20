@@ -71,7 +71,7 @@ pub fn tally(match_results: &str) -> String {
         })
         .flatten()
         .for_each(|(name, res)| {
-            let mut team = map.entry(String::from(name)).or_insert(Team::new(name));
+            let team = map.entry(String::from(name)).or_insert(Team::new(name));
             match res {
                 "win" => team.wins += 1,
                 "loss" => team.lost += 1,

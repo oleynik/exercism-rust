@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet};
 
 // This annotation prevents Clippy from warning us that `School` has a
 // `fn new()` with no arguments, but doesn't implement the `Default` trait.

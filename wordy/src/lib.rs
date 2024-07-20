@@ -20,7 +20,7 @@ pub fn answer(command: &str) -> Option<i32> {
             .trim(),
     );
     let mut next = Token::ARGUMENT;
-    let mut skip = 0;
+    let mut skip;
     let mut stack = vec![];
     let mut command: Option<&str> = None;
     loop {

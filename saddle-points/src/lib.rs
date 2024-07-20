@@ -14,7 +14,7 @@ pub fn find_saddle_points(input: &[Vec<u64>]) -> Vec<(usize, usize)> {
         let max_idxs = row
             .iter()
             .enumerate()
-            .filter(|(i, &e)| e == *max_value.unwrap())
+            .filter(|(_i, &e)| e == *max_value.unwrap())
             .map(|(i, _)| i)
             .collect::<Vec<usize>>();
         for max_idx in max_idxs {
